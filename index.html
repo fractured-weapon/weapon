@@ -33,39 +33,48 @@ body{
 </style>
 
 <div id="bg">
-  <img id="img" src="bang_tres.png">
+  <img id="img" src="bang_cero.jpg">
 </div>
 
 <button id="btn">tap</button>
 <audio id="snd" src="bang.mp3"></audio>
 
 <script>
-const fotos=["bang_cero.jpg","bang_uno.png","bang_dos.png","bang_tres.png"];
-let i=0;
+// secuencia REAL (sin bang_tres)
+const secuencia = [
+  "bang_cero.jpg",
+  "bang_uno.png",
+  "bang_dos.png"
+];
 
+let i = 0;
 const isDesktop = matchMedia("(pointer: fine)").matches;
 
-function cambiar(){
-  if(i === fotos.length - 1){
-    // 👇 redirección antes de reiniciar
-    window.location.href = "https://secreto.site/es/aky9z7";
-    return;
-  }
-
-  i++;
-  img.src = fotos[i];
-
+function avanzar(){
+  // sonido SOLO al pasar a bang_uno
   if(i === 1){
     snd.currentTime = 0;
     snd.play();
   }
+
+  img.src = secuencia[i];
+
+  // último paso → redirección
+  if(i === secuencia.length - 1){
+    setTimeout(() => {
+      window.location.href = "https://secreto.site/es/aky9z7";
+    }, 200); // pequeño respiro visual
+    return;
+  }
+
+  i++;
 }
 
 if(isDesktop){
-  document.addEventListener("click", cambiar);
+  document.addEventListener("click", avanzar);
 }else{
   btn.style.display = "block";
-  btn.onclick = cambiar;
+  btn.onclick = avanzar;
 }
 </script>
 </html>
