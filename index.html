@@ -2,31 +2,37 @@
 const pasos = ["bang_cero.jpg","bang_uno.png","bang_dos.png","bang_tres.png"];
 const isDesktop = matchMedia("(pointer: fine)").matches;
 
-// índice del paso ACTUAL dentro de `pasos`
 let i = isDesktop ? 0 : -1;
+let listoParaSalir = false;
 
-// imagen inicial
 img.src = isDesktop ? pasos[0] : "bang_tres.png";
 
 function avanzar(){
-  i++;
-
-  // fin → redirección
-  if(i >= pasos.length){
+  // si ya vimos bang_tres → ahora sí redirige
+  if(listoParaSalir){
     window.location.href = "https://secreto.site/es/aky9z7";
     return;
   }
 
+  i++;
+
+  // mostrar bang_tres y preparar salida
+  if(i === pasos.length - 1){
+    img.src = pasos[i];
+    listoParaSalir = true;
+    return;
+  }
+
+  if(i >= pasos.length) return;
+
   img.src = pasos[i];
 
-  // sonido SOLO al mostrar bang_uno
   if(pasos[i] === "bang_uno.png"){
     snd.currentTime = 0;
     snd.play();
   }
 }
 
-// interacción según dispositivo
 if(isDesktop){
   document.addEventListener("click", avanzar);
 }else{
