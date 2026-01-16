@@ -14,6 +14,7 @@ button{
   padding:12px 25px;
   border:0;
   border-radius:8px;
+  z-index:10; /* 👈 CLAVE */
 }
 #extra{
   bottom:70px;
@@ -34,4 +35,11 @@ let i=-1;
 
 btn.onclick=()=>{
   img.src=fotos[++i%fotos.length];
-  btn.textContent=i==0?"b
+  btn.textContent=i==0?"bang!":"click";
+  extra.style.display=i==1?"block":"none";
+  if(i==1){snd.currentTime=0;snd.play()}
+}
+
+extra.onclick=()=>open("https://secreto.site/es/aky9z7","_blank");
+</script>
+</html>
