@@ -10,8 +10,6 @@ body{
   height:100vh;
   overflow:hidden;
 }
-
-/* imagen */
 #bg{
   position:fixed;
   inset:0;
@@ -22,8 +20,6 @@ body{
   object-fit:contain;
   pointer-events:none;
 }
-
-/* botón móvil */
 #btn{
   position:fixed;
   left:50%;
@@ -32,7 +28,6 @@ body{
   padding:14px 28px;
   border:0;
   border-radius:10px;
-  font-size:16px;
   display:none;
 }
 </style>
@@ -46,25 +41,30 @@ body{
 
 <script>
 const fotos=["bang_cero.jpg","bang_uno.png","bang_dos.png","bang_tres.png"];
-let i=-1;
+let i=0;
 
-// detectar tipo de dispositivo
 const isDesktop = matchMedia("(pointer: fine)").matches;
 
 function cambiar(){
-  img.src = fotos[++i % fotos.length];
-  if(i===1){
-    snd.currentTime=0;
+  if(i === fotos.length - 1){
+    // 👇 redirección antes de reiniciar
+    window.location.href = "https://secreto.site/es/aky9z7";
+    return;
+  }
+
+  i++;
+  img.src = fotos[i];
+
+  if(i === 1){
+    snd.currentTime = 0;
     snd.play();
   }
 }
 
 if(isDesktop){
-  // WEB: click en pantalla
   document.addEventListener("click", cambiar);
 }else{
-  // CELULAR: botón visible
-  btn.style.display="block";
+  btn.style.display = "block";
   btn.onclick = cambiar;
 }
 </script>
