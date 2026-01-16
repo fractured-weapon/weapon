@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<style>
+body{margin:0;background:#000;display:grid;place-items:center;height:100vh}
+img{width:100vw;height:100vh;object-fit:contain}
+button{position:absolute;bottom:20px;padding:12px 25px;border:0;border-radius:8px}
+#extra{bottom:70px;background:red;color:#fff;display:none}
+</style>
+
+<img id="img" src="bang_tres.png">
+<button id="btn">click</button>
+<button id="extra">here</button>
+<audio id="snd" src="bang.mp3"></audio>
+
+<script>
+const fotos=["bang_cero.jpg","bang_uno.png","bang_dos.png","bang_tres.png"];
+let i=-1;
+
+btn.onclick=()=>{
+  img.src=fotos[++i%fotos.length];
+  btn.textContent=i==0?"bang!":"click";
+  extra.style.display=i==1?"block":"none";
+  if(i==1){snd.currentTime=0;snd.play()}
+}
+
+extra.onclick=()=>open("https://secreto.site/es/aky9z7","_blank");
+</script>
+</html>
