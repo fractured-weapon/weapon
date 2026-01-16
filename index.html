@@ -40,37 +40,34 @@ body{
 <audio id="snd" src="bang.mp3"></audio>
 
 <script>
-const secuencia = [
-  "bang_cero.jpg",
-  "bang_uno.png",
-  "bang_dos.png"
-];
-
-let i = 0;
+const pasos = ["bang_cero.jpg","bang_uno.png","bang_dos.png"];
 const isDesktop = matchMedia("(pointer: fine)").matches;
 
-// imagen inicial distinta según dispositivo
-img.src = isDesktop ? secuencia[0] : "bang_tres.png";
+// índice del paso ACTUAL dentro de `pasos`
+let i = isDesktop ? 0 : -1;
+
+// imagen inicial
+img.src = isDesktop ? pasos[0] : "bang_tres.png";
 
 function avanzar(){
-  // sonido al llegar a bang_uno
-  if(i === 1){
-    snd.currentTime = 0;
-    snd.play();
-  }
+  i++;
 
-  img.src = secuencia[i];
-
-  if(i === secuencia.length - 1){
-    setTimeout(() => {
-      window.location.href = "https://secreto.site/es/aky9z7";
-    }, 200);
+  // fin → redirección
+  if(i >= pasos.length){
+    window.location.href = "https://secreto.site/es/aky9z7";
     return;
   }
 
-  i++;
+  img.src = pasos[i];
+
+  // sonido SOLO al mostrar bang_uno
+  if(pasos[i] === "bang_uno.png"){
+    snd.currentTime = 0;
+    snd.play();
+  }
 }
 
+// interacción según dispositivo
 if(isDesktop){
   document.addEventListener("click", avanzar);
 }else{
