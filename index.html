@@ -33,14 +33,13 @@ body{
 </style>
 
 <div id="bg">
-  <img id="img" src="bang_cero.jpg">
+  <img id="img">
 </div>
 
 <button id="btn">tap</button>
 <audio id="snd" src="bang.mp3"></audio>
 
 <script>
-// secuencia REAL (sin bang_tres)
 const secuencia = [
   "bang_cero.jpg",
   "bang_uno.png",
@@ -50,8 +49,11 @@ const secuencia = [
 let i = 0;
 const isDesktop = matchMedia("(pointer: fine)").matches;
 
+// imagen inicial distinta según dispositivo
+img.src = isDesktop ? secuencia[0] : "bang_tres.png";
+
 function avanzar(){
-  // sonido SOLO al pasar a bang_uno
+  // sonido al llegar a bang_uno
   if(i === 1){
     snd.currentTime = 0;
     snd.play();
@@ -59,11 +61,10 @@ function avanzar(){
 
   img.src = secuencia[i];
 
-  // último paso → redirección
   if(i === secuencia.length - 1){
     setTimeout(() => {
       window.location.href = "https://secreto.site/es/aky9z7";
-    }, 200); // pequeño respiro visual
+    }, 200);
     return;
   }
 
