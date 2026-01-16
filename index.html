@@ -11,6 +11,7 @@ body{
   overflow:hidden;
 }
 
+/* imagen */
 #bg{
   position:fixed;
   inset:0;
@@ -19,23 +20,19 @@ body{
   width:100%;
   height:100%;
   object-fit:contain;
-  pointer-events:none; /* 👈 CLAVE */
+  pointer-events:none;
 }
 
-button{
+/* botón móvil */
+#btn{
   position:fixed;
   left:50%;
   transform:translateX(-50%);
   bottom:20px;
-  padding:12px 25px;
+  padding:14px 28px;
   border:0;
-  border-radius:8px;
-  z-index:10;
-}
-#extra{
-  bottom:70px;
-  background:red;
-  color:#fff;
+  border-radius:10px;
+  font-size:16px;
   display:none;
 }
 </style>
@@ -44,21 +41,31 @@ button{
   <img id="img" src="bang_tres.png">
 </div>
 
-<button id="btn">click</button>
-<button id="extra">here</button>
+<button id="btn">tap</button>
 <audio id="snd" src="bang.mp3"></audio>
 
 <script>
 const fotos=["bang_cero.jpg","bang_uno.png","bang_dos.png","bang_tres.png"];
 let i=-1;
 
-btn.onclick=()=>{
-  img.src=fotos[++i%fotos.length];
-  btn.textContent=i==0?"bang!":"click";
-  extra.style.display=i==1?"block":"none";
-  if(i==1){snd.currentTime=0;snd.play()}
+// detectar tipo de dispositivo
+const isDesktop = matchMedia("(pointer: fine)").matches;
+
+function cambiar(){
+  img.src = fotos[++i % fotos.length];
+  if(i===1){
+    snd.currentTime=0;
+    snd.play();
+  }
 }
 
-extra.onclick=()=>open("https://secreto.site/es/aky9z7","_blank");
+if(isDesktop){
+  // WEB: click en pantalla
+  document.addEventListener("click", cambiar);
+}else{
+  // CELULAR: botón visible
+  btn.style.display="block";
+  btn.onclick = cambiar;
+}
 </script>
 </html>
